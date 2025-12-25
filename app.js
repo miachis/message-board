@@ -1,5 +1,14 @@
 const express = require("express");
-require("dotenv").config();
+const indexRouter = require("./routes/indexRouter");
+const msgRouter = require("./routes/messageRouter");
 const app = express();
+require("dotenv").config();
+app.set("view engine", "ejs");
 
-app.listen(process.env.PORT);
+app.use(express.urlencoded({ extended: true }));
+app.use("/", indexRouter);
+app.use("/new", msgRouter);
+
+app.listen(process.env.PORT, () => {
+  console.log(`localhost:${process.env.PORT}`);
+});
